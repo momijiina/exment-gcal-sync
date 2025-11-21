@@ -3,6 +3,7 @@
 # Exment Googleレンダービューワー
 ExmentでGoogleカレンダーを表示します
 <img width="1646" height="987" alt="cal2" src="https://github.com/user-attachments/assets/a19542cc-96c8-4fe8-ae23-50a3a72a9a30" />
+詳細です(アルパカ牧場はいってますが無関係なので一応住所つぶしておきます)
 <img width="1669" height="973" alt="cal" src="https://github.com/user-attachments/assets/81eb585e-f437-43c1-9dd7-3dd3c6ca961e" />
 
 ## 機能
