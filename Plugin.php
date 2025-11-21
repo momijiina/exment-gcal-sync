@@ -16,14 +16,23 @@ class Plugin extends PluginPageBase
      */
     public function setCustomOptionForm(&$form)
     {
-        $form->text('ical_url', 'iCal URL')
-            ->help('Googleカレンダーの設定から「iCal形式の非公開URL」を入力してください。')
-            ->rules('required|url');
-
         $form->number('sync_interval', '同期間隔（分）')
             ->default(15)
             ->help('カレンダーデータを更新する頻度を指定します。')
             ->rules('required|integer|min:1');
+
+        $form->html('<hr>');
+
+        for ($i = 1; $i <= 5; $i++) {
+            $form->html("<h4>カレンダー {$i}</h4>");
+            $form->text("ical_url_{$i}", "iCal URL {$i}")
+                ->help("Googleカレンダーの「iCal形式の非公開URL」")
+                ->rules('nullable|url');
+            $form->text("calendar_name_{$i}", "表示名 {$i}")
+                ->default("カレンダー {$i}");
+            $form->color("calendar_color_{$i}", "色 {$i}")
+                ->default('#4F46E5');
+        }
     }
 
     /**
@@ -33,8 +42,20 @@ class Plugin extends PluginPageBase
      */
     public function index()
     {
+        $calendars = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $url = $this->plugin->getCustomOption("ical_url_{$i}");
+            if ($url) {
+                $calendars[] = [
+                    'url' => $url,
+                    'name' => $this->plugin->getCustomOption("calendar_name_{$i}", "カレンダー {$i}"),
+                    'color' => $this->plugin->getCustomOption("calendar_color_{$i}", '#4F46E5'),
+                ];
+            }
+        }
+
         $config = [
-            'icalUrl' => $this->plugin->getCustomOption('ical_url'),
+            'calendars' => $calendars,
             'syncInterval' => (int) $this->plugin->getCustomOption('sync_interval', 15),
         ];
 
