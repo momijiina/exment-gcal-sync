@@ -1,5 +1,3 @@
-プラグイン自体をテストでAntigravityに作成させてます。<br/>
-作り直すかもしれないです。
 # Exment Googleレンダービューワー
 ExmentでGoogleカレンダーを表示します
 <img width="1646" height="987" alt="cal2" src="https://github.com/user-attachments/assets/a19542cc-96c8-4fe8-ae23-50a3a72a9a30" />
