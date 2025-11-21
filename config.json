@@ -4,7 +4,7 @@
     "description": "GoogleカレンダーのiCalフィードを表示します。",
     "uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
     "author": "momijiina",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "plugin_type": "page",
     "route": [
         {
