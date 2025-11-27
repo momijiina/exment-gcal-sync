@@ -3,8 +3,9 @@
 ExmentでGoogleカレンダーを表示します
 <img width="1648" height="932" alt="cal4" src="https://github.com/user-attachments/assets/1d984c12-d214-4a50-ab34-4e35819929ee" />
 中のプログラムやデザインがほぼ違うのでv3.0です。<br/>
-前のやつはかなり重かったので作り直してます。
-同期エラーもひどかったです。
+前のやつはかなり重かったので作り直してます。<br/>
+同期エラーもひどかったです。<br/>
+Antigravity + gemini にベースを作らせましたがまともに使えないないのでVSCode + Claude4.5で開発中。
 
 ## 機能
 - **カレンダー同期**: 設定画面で登録したURLのカレンダーを自動同期
