@@ -1,13 +1,10 @@
 # Exment Googleレンダービューワー
+## 現在、V3.0に作り変え中
 ExmentでGoogleカレンダーを表示します
-<img width="1646" height="987" alt="cal2" src="https://github.com/user-attachments/assets/a19542cc-96c8-4fe8-ae23-50a3a72a9a30" />
-詳細です(アルパカ牧場はいってますが無関係なので一応住所つぶしておきます)
-<img width="1669" height="973" alt="cal" src="https://github.com/user-attachments/assets/81eb585e-f437-43c1-9dd7-3dd3c6ca961e" />
-## v2.0
-早すぎますがV2.0に更新します。<br/>
-1プラグインあたりの最大カレンダー数を5に変更します
-<img width="1820" height="889" alt="cal3" src="https://github.com/user-attachments/assets/86be20a5-fe5c-4606-8295-3cf22dd469a7" />
-
+<img width="1648" height="932" alt="cal4" src="https://github.com/user-attachments/assets/1d984c12-d214-4a50-ab34-4e35819929ee" />
+中のプログラムやデザインがほぼ違うのでv3.0です。<br/>
+前のやつはかなり重かったので作り直してます。
+同期エラーもひどかったです。
 
 ## 機能
 - **カレンダー同期**: 設定画面で登録したURLのカレンダーを自動同期
@@ -28,3 +25,12 @@ ExmentでGoogleカレンダーを表示します
 2.「Googleカレンダービューアー」の設定を開く
 3. 設定保存
 
+## 旧バージョン説明
+## v1.0
+<img width="1646" height="987" alt="cal2" src="https://github.com/user-attachments/assets/a19542cc-96c8-4fe8-ae23-50a3a72a9a30" />
+詳細です(アルパカ牧場はいってますが無関係なので一応住所つぶしておきます)
+<img width="1669" height="973" alt="cal" src="https://github.com/user-attachments/assets/81eb585e-f437-43c1-9dd7-3dd3c6ca961e" />
+## v2.0
+早すぎますがV2.0に更新します。<br/>
+1プラグインあたりの最大カレンダー数を5に変更します
+<img width="1820" height="889" alt="cal3" src="https://github.com/user-attachments/assets/86be20a5-fe5c-4606-8295-3cf22dd469a7" />
