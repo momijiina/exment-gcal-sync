@@ -26,6 +26,14 @@ ExmentでGoogleカレンダーを表示します
 2.「Googleカレンダービューアー」の設定を開く
 3. 設定保存
 
+### その他
+5個以上カレンダーが欲しい場合
+```Plugin.php
+for ($i = 1; $i <= 5; $i++) {
+```
+Plugin.phpのforの最大値を全て必要な数に変更してください。<br/>
+3,4か所だけです。
+
 ## 旧バージョン説明
 ## v1.0
 <img width="1646" height="987" alt="cal2" src="https://github.com/user-attachments/assets/a19542cc-96c8-4fe8-ae23-50a3a72a9a30" />
