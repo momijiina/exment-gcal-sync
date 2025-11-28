@@ -1,5 +1,5 @@
 # Exment Googleレンダービューワー
-## 現在、V3.0に作り変え中
+## V3.0
 ExmentでGoogleカレンダーを表示します
 <img width="1649" height="928" alt="image" src="https://github.com/user-attachments/assets/4c565d29-eab0-4120-a731-1736a7aa2a96" />
 中のプログラムやデザインがほぼ違うのでv3.0です。<br/>
