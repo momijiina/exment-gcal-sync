@@ -1,11 +1,11 @@
 # Exment Googleレンダービューワー
 ## 現在、V3.0に作り変え中
 ExmentでGoogleカレンダーを表示します
-<img width="1648" height="932" alt="cal4" src="https://github.com/user-attachments/assets/1d984c12-d214-4a50-ab34-4e35819929ee" />
+<img width="1649" height="928" alt="image" src="https://github.com/user-attachments/assets/4c565d29-eab0-4120-a731-1736a7aa2a96" />
 中のプログラムやデザインがほぼ違うのでv3.0です。<br/>
 前のやつはかなり重かったので作り直してます。<br/>
 同期エラーもひどかったです。<br/>
-Antigravity + gemini にベースを作らせましたがまともに使えないないのでVSCode + Claude4.5で開発中。
+修正済みです
 
 ## 機能
 - **カレンダー同期**: 設定画面で登録したURLのカレンダーを自動同期
