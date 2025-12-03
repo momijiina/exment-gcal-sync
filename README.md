@@ -2,6 +2,8 @@
 ## V3.0
 ExmentでGoogleカレンダーを表示します
 <img width="1649" height="928" alt="image" src="https://github.com/user-attachments/assets/4c565d29-eab0-4120-a731-1736a7aa2a96" />
+<img width="1645" height="889" alt="gantt" src="https://github.com/user-attachments/assets/86c202bb-59e4-4107-9d58-b01b7dc74049" />
+
 中のプログラムやデザインがほぼ違うのでv3.0です。<br/>
 前のやつはかなり重かったので作り直してます。<br/>
 同期エラーもひどかったです。<br/>
@@ -13,6 +15,7 @@ ExmentでGoogleカレンダーを表示します
 - **手動同期**: カレンダーの手動同期(v2.0から)
 - **色付け**: カレンダー名の色変更機能(v2.0から)
 - **カレンダー名の設定**:カレンダー名の設定が可能(v2.0から)
+- **簡易ガントモード**:ガントチャート表示可能
 
 ## 必要な設定
 ### 1. Googoleカレンダーの非公開ical形式の非公開URL取得
