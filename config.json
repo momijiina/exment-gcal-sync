@@ -1,10 +1,10 @@
 {
     "plugin_name": "GoogleCalendarViewer",
     "plugin_view_name": "Googleカレンダービューワー",
-    "description": "GoogleカレンダーのiCalフィードを同期して表示するビューワープラグインです。",
+    "description": "GoogleカレンダーのiCalフィードを同期して表示するビューワープラグインです。カレンダービューとガントビューの切り替えが可能です。",
     "uuid": "f8e3a4b2-c9d7-4e5f-a1b6-2c8d9e0f1a3b",
     "author": "momijiina",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "plugin_type": "page",
     "route": [
         {
