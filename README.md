@@ -1,13 +1,8 @@
 # Exment Googleレンダービューワー
-## V3.0
+## V3
 ExmentでGoogleカレンダーを表示します
-<img width="1649" height="928" alt="image" src="https://github.com/user-attachments/assets/4c565d29-eab0-4120-a731-1736a7aa2a96" />
+<img width="1649" height="922" alt="cal (3)" src="https://github.com/user-attachments/assets/a71f0c96-0ab2-4077-b7f8-6354d461a02a" />
 <img width="1645" height="889" alt="gantt" src="https://github.com/user-attachments/assets/86c202bb-59e4-4107-9d58-b01b7dc74049" />
-
-中のプログラムやデザインがほぼ違うのでv3.0です。<br/>
-前のやつはかなり重かったので作り直してます。<br/>
-同期エラーもひどかったです。<br/>
-新規プログラムとして作成、修正済みです
 
 ## 機能
 - **カレンダー同期**: 設定画面で登録したURLのカレンダーを自動同期
@@ -38,6 +33,11 @@ Plugin.phpのforの最大値を全て必要な数に変更してください。<
 3,4か所だけです。
 
 ## 旧バージョン説明
+v3.0から中のプログラムやデザインがほぼ違います。<br/>
+この旧バージョンは重かったので作り直してます。<br/>
+同期エラーもひどかったです。<br/>
+新規プログラムとして作成、修正済みです。<br/>
+使用は非推奨。
 ## v1.0
 <img width="1646" height="987" alt="cal2" src="https://github.com/user-attachments/assets/a19542cc-96c8-4fe8-ae23-50a3a72a9a30" />
 詳細です(アルパカ牧場はいってますが無関係なので一応住所つぶしておきます)
