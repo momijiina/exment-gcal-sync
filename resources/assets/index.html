@@ -211,6 +211,148 @@
             from { transform: translateY(-20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        /* ガントビュー用スタイル */
+        .gantt-container {
+            display: flex;
+            overflow: hidden;
+            height: 100%;
+            position: relative;
+        }
+
+        .gantt-sidebar {
+            width: 250px;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            background: white;
+        }
+
+        .gantt-chart {
+            flex: 1;
+            overflow-x: auto;
+            overflow-y: auto;
+            background: white;
+        }
+        
+        .gantt-sidebar-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: #f9fafb;
+        }
+        
+        .gantt-sidebar-content {
+            overflow-y: hidden;
+        }
+
+        .gantt-header {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            background: #f9fafb;
+            z-index: 10;
+            min-height: 60px;
+        }
+
+        .gantt-date-cell {
+            min-width: 40px;
+            padding: 8px 4px;
+            text-align: center;
+            border-right: 1px solid #e5e7eb;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .gantt-date-cell.weekend {
+            background: #fef3f2;
+        }
+
+        .gantt-date-cell.today {
+            background: #eef2ff;
+            font-weight: 600;
+        }
+
+        .gantt-row {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            min-height: 48px;
+            align-items: center;
+            position: relative;
+        }
+
+        .gantt-row:hover {
+            background: #f9fafb;
+        }
+
+        .gantt-task-name {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        .gantt-bar-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .gantt-bar {
+            position: absolute;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-size: 0.75rem;
+            color: white;
+            font-weight: 500;
+            overflow: visible;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .gantt-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 15;
+        }
+        
+        .gantt-bar-label {
+            position: absolute;
+            left: 100%;
+            margin-left: 8px;
+            color: #374151;
+            font-weight: 500;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .gantt-grid-line {
+            min-width: 40px;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .gantt-grid-line.weekend {
+            background: #fef3f2;
+        }
+
+        .gantt-grid-line.today {
+            background: #eef2ff;
+        }
     </style>
 </head>
 <body>
@@ -382,10 +524,17 @@
             render() {
                 const app = document.getElementById('app');
                 
+                let contentHtml = '';
+                if (this.view === 'gantt') {
+                    contentHtml = this.renderGanttView();
+                } else {
+                    contentHtml = this.renderCalendar();
+                }
+                
                 app.innerHTML = `
                     <div class="h-full flex flex-col">
                         ${this.renderHeader()}
-                        ${this.renderCalendar()}
+                        ${contentHtml}
                     </div>
                 `;
 
@@ -423,6 +572,19 @@
                                 </button>
                             </div>
                             <div class="flex items-center space-x-2">
+                                <!-- ビュー切り替えボタン -->
+                                <div class="bg-gray-100 rounded-lg p-1 flex mr-2">
+                                    <button id="view-month-btn" class="px-3 py-1 rounded-md transition ${this.view === 'month' ? 'bg-white text-primary shadow-sm' : 'text-gray-600 hover:text-gray-800'}">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </button>
+                                    <button id="view-gantt-btn" class="px-3 py-1 rounded-md transition ${this.view === 'gantt' ? 'bg-white text-primary shadow-sm' : 'text-gray-600 hover:text-gray-800'}">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                                 <button id="prev-btn" class="p-2 hover:bg-gray-100 rounded-lg transition">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -745,8 +907,27 @@
                     this.render();
                 });
 
-                // イベントクリック時の詳細表示
+                // ビュー切り替えボタン
+                document.getElementById('view-month-btn')?.addEventListener('click', () => {
+                    this.view = 'month';
+                    this.render();
+                });
+
+                document.getElementById('view-gantt-btn')?.addEventListener('click', () => {
+                    this.view = 'gantt';
+                    this.render();
+                });
+
+                // イベントクリック時の詳細表示（カレンダービュー）
                 document.querySelectorAll('.day-event').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        const eventData = JSON.parse(e.currentTarget.getAttribute('data-event'));
+                        this.showEventDetail(eventData);
+                    });
+                });
+
+                // ガントバークリック時の詳細表示
+                document.querySelectorAll('.gantt-bar').forEach(el => {
                     el.addEventListener('click', (e) => {
                         const eventData = JSON.parse(e.currentTarget.getAttribute('data-event'));
                         this.showEventDetail(eventData);
@@ -775,6 +956,16 @@
                         this.render();
                     });
                 });
+
+                // ガントチャートのスクロール連動
+                const ganttChart = document.getElementById('gantt-chart');
+                const ganttSidebarContent = document.getElementById('gantt-sidebar-content');
+                
+                if (ganttChart && ganttSidebarContent) {
+                    ganttChart.addEventListener('scroll', () => {
+                        ganttSidebarContent.style.transform = `translateY(-${ganttChart.scrollTop}px)`;
+                    });
+                }
             }
 
             showEventDetail(event) {
@@ -934,6 +1125,168 @@
                         this.showEventDetail(eventData);
                     });
                 });
+            }
+
+            renderGanttView() {
+                // 表示期間を取得（当月の1日から末日まで）
+                const year = this.currentDate.getFullYear();
+                const month = this.currentDate.getMonth();
+                const firstDay = new Date(year, month, 1);
+                firstDay.setHours(0, 0, 0, 0);
+                const lastDay = new Date(year, month + 1, 0);
+                lastDay.setHours(23, 59, 59, 999);
+                
+                // アクティブなカレンダーのイベントで、かつ当月に関係するもののみをフィルタ
+                const filteredEvents = this.events.filter(event => {
+                    if (!this.activeCalendars.has(event.calendar)) {
+                        return false;
+                    }
+                    
+                    const eventStart = new Date(event.start);
+                    eventStart.setHours(0, 0, 0, 0);
+                    let eventEnd = event.end ? new Date(event.end) : new Date(event.start);
+                    eventEnd.setHours(0, 0, 0, 0);
+                    
+                    // 終日イベントの終了日調整（終了日は含まない）
+                    if (event.allDay && event.end) {
+                        eventEnd.setDate(eventEnd.getDate() - 1);
+                    }
+                    
+                    // イベントが当月に重なっているかチェック
+                    // イベント開始が月末以前 かつ イベント終了が月初以降
+                    const monthStart = new Date(year, month, 1);
+                    monthStart.setHours(0, 0, 0, 0);
+                    const monthEnd = new Date(year, month + 1, 0);
+                    monthEnd.setHours(23, 59, 59, 999);
+                    
+                    return eventStart <= monthEnd && eventEnd >= monthStart;
+                });
+                
+                // 日付ヘッダーを生成
+                const days = [];
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                for (let d = new Date(firstDay); d <= lastDay; d.setDate(d.getDate() + 1)) {
+                    const dayOfWeek = d.getDay();
+                    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+                    const isToday = d.getTime() === today.getTime();
+                    
+                    days.push({
+                        date: new Date(d),
+                        day: d.getDate(),
+                        isWeekend,
+                        isToday
+                    });
+                }
+                
+                // ヘッダー生成
+                const dayOfWeekNames = ['日', '月', '火', '水', '木', '金', '土'];
+                let headerHtml = '<div class="gantt-header">';
+                days.forEach(dayInfo => {
+                    let className = 'gantt-date-cell';
+                    if (dayInfo.isWeekend) className += ' weekend';
+                    if (dayInfo.isToday) className += ' today';
+                    
+                    const dayOfWeekName = dayOfWeekNames[dayInfo.date.getDay()];
+                    headerHtml += `
+                        <div class="${className}">
+                            <div style="font-weight: 600;">${dayInfo.day}</div>
+                            <div style="font-size: 0.65rem; margin-top: 2px;">${dayOfWeekName}</div>
+                        </div>
+                    `;
+                });
+                headerHtml += '</div>';
+                
+                // タスク行を生成
+                let tasksHtml = '';
+                let sidebarHtml = '';
+                
+                filteredEvents.forEach(event => {
+                    const eventStart = new Date(event.start);
+                    eventStart.setHours(0, 0, 0, 0);
+                    const eventEnd = event.end ? new Date(event.end) : new Date(event.start);
+                    eventEnd.setHours(0, 0, 0, 0);
+                    
+                    // 終日イベントの終了日調整（終了日は含まない）
+                    if (event.allDay && event.end) {
+                        eventEnd.setDate(eventEnd.getDate() - 1);
+                    }
+                    
+                    // サイドバー（タスク名）
+                    sidebarHtml += `
+                        <div class="gantt-task-name" title="${event.summary}">
+                            <div class="w-3 h-3 rounded-full mr-2" style="background-color: ${event.color};"></div>
+                            <span class="flex-1">${event.summary}</span>
+                        </div>
+                    `;
+                    
+                    // グリッド行とバー
+                    tasksHtml += '<div class="gantt-row">';
+                    
+                    let barHtml = '';
+                    let barStartIndex = -1;
+                    let barWidth = 0;
+                    
+                    days.forEach((dayInfo, index) => {
+                        const dayDate = new Date(dayInfo.date);
+                        
+                        // グリッド線
+                        let gridClass = 'gantt-grid-line';
+                        if (dayInfo.isWeekend) gridClass += ' weekend';
+                        if (dayInfo.isToday) gridClass += ' today';
+                        
+                        tasksHtml += `<div class="${gridClass}"></div>`;
+                        
+                        // バーの開始位置と幅を計算
+                        if (dayDate.getTime() >= eventStart.getTime() && 
+                            dayDate.getTime() <= eventEnd.getTime()) {
+                            if (barStartIndex === -1) {
+                                barStartIndex = index;
+                            }
+                            barWidth++;
+                        }
+                    });
+                    
+                    // バーを描画
+                    if (barStartIndex !== -1 && barWidth > 0) {
+                        const leftPosition = barStartIndex * 40 + 2; // 2px のマージン
+                        const barWidthPx = barWidth * 40 - 4; // 左右2pxずつのマージン
+                        
+                        barHtml = `
+                            <div class="gantt-bar" 
+                                 style="left: ${leftPosition}px; width: ${barWidthPx}px; background-color: ${event.color};"
+                                 data-event='${JSON.stringify(event).replace(/'/g, "&#39;")}'>
+                                <span class="gantt-bar-label">${event.summary}</span>
+                            </div>
+                        `;
+                        
+                        tasksHtml += barHtml;
+                    }
+                    
+                    tasksHtml += '</div>';
+                });
+                
+                const ganttDiv = document.createElement('div');
+                ganttDiv.className = 'flex-1 overflow-hidden';
+                ganttDiv.innerHTML = `
+                    <div class="gantt-container">
+                        <div class="gantt-sidebar" id="gantt-sidebar">
+                            <div class="gantt-sidebar-header bg-gray-100 p-3 text-sm font-semibold border-b" style="min-height: 60px; display: flex; align-items: center;">
+                                タスク名
+                            </div>
+                            <div class="gantt-sidebar-content" id="gantt-sidebar-content">
+                                ${sidebarHtml}
+                            </div>
+                        </div>
+                        <div class="gantt-chart" id="gantt-chart">
+                            ${headerHtml}
+                            ${tasksHtml}
+                        </div>
+                    </div>
+                `;
+                
+                return ganttDiv.outerHTML;
             }
         }
 
